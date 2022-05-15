@@ -1,5 +1,3 @@
-package main;
-
 import java.lang.reflect.Method;
 
 import util.refUtil;
