@@ -5,6 +5,9 @@ import static org.junit.Assert.assertNotNull;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
@@ -54,6 +57,7 @@ public class MyTest {
     public void testOnGettingField(){
         Field[] fields = refUtil.getAllPublicFields(Book.class);
         assertEquals(2, fields.length);
+        for(Field field : fields) System.out.println(Modifier.isPublic(field.getModifiers()));
     }
 
     @Test
@@ -106,5 +110,17 @@ public class MyTest {
     public void testOnGetSpiMethodIP(){
         Method method = refUtil.getSpiMethod(Book.class, "testOnGetMethod", new Class[]{String.class, String.class, List.class});
         System.out.println(method);
+    }
+
+    @Test
+    public void testOnNames(){
+        System.out.println(Book.class.getName().substring(Book.class.getName().lastIndexOf(".")));
+    }
+
+    @Test
+    public void testOnGetFiledAndModifies(){
+        String[] modifiers = refUtil.getAllModifiers(HashMap.class);
+        String[] fields = refUtil.getSimpleFieldName(HashMap.class);
+        for(int i = 0; i < fields.length; ++ i) System.out.println(modifiers[i] + fields[i]);
     }
 }

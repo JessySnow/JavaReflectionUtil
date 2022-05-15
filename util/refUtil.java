@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * 反射工具类
@@ -250,4 +251,60 @@ public class refUtil {
     
     // TODO:泛型方法调用
     /*********************************** Methods *************************************/
+
+
+    /**
+     * 返回类的简写类名
+     * @param class1
+     * @return
+     */
+    public static String getSimpleClassName(Class class1){
+        String name = class1.getName();
+        name = name.substring(name.lastIndexOf(".") + 1);
+        return name;
+    } 
+
+
+    /**
+     * 返回类中声明的所有域的简写名称
+     * @param class1
+     * @return
+     */
+    public static String[] getSimpleFieldName(Class class1){
+        Field[] fields = class1.getDeclaredFields();
+        String[] fieldNames = new String[fields.length]; 
+
+        for(int i = 0; i < fields.length; ++ i){
+            String name = fields[i].getName();
+            fieldNames[i] = name;
+        }
+
+        return fieldNames;
+    }
+
+    public static String[] getAllModifiers(Class class1){
+        Field[] fields = class1.getDeclaredFields();
+        String[] modifiers = new String[fields.length]; 
+
+        for(int i = 0; i < fields.length; ++ i){
+            int modifier = fields[i].getModifiers();
+            StringBuilder sb = new StringBuilder();
+            if(Modifier.isPublic(modifier)) sb.append("public ");
+            else if(Modifier.isPrivate(modifier)) sb.append("private ");
+            else if(Modifier.isProtected(modifier)) sb.append("protected ");
+            else sb.append("default ");
+
+            if(Modifier.isStatic(modifier)) sb.append("static ");
+            if(Modifier.isFinal(modifier)) sb.append("final ");
+            if(Modifier.isNative(modifier)) sb.append("native ");
+            if(Modifier.isSynchronized(modifier)) sb.append("synchronized ");
+            if(Modifier.isTransient(modifier)) sb.append("transient ");
+            if(Modifier.isVolatile(modifier)) sb.append("volatitle ");
+
+            modifiers[i] = sb.toString();            
+        }
+
+        return modifiers;
+    }
+    /************************************ Name/Field Format ****************************/
 }
