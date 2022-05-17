@@ -17,10 +17,13 @@ public class ClassAnalyzer {
     private static final String warn2 = "无法找到类名指定的类";
     private static final String line = "\n*************************** %s *****************************\n";
 
-    private static final String nameFormat = "类的全限定类名: %s\n, 类的简写类名: %s\n";
-    private static final String fieldFormat = "%s%s";
+    private static final String nameFormat = "类的全限定类名: %s\n类的简写类名: %s\n";
+    private static final String fieldFormat = "%s%s\n";
 
     public static void main(String[] args) {
+
+        System.out.println(args[0]);
+
         if(args.length == 0) {
             System.out.println(warn1);
             System.exit(1);
